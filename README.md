@@ -160,3 +160,34 @@ The createContact method just creates an empty contact with no name or data or a
 > Where's the code to refetch the data? Where are `useState`, `onSubmit` and `useEffect`?!
 
 This is where the "old school web" programming model shows up. As we discussed earlier, `<Form>` prevents the browser from sending the request to the server and sends it to your route action instead. In web semantics, a POST usually means some data is changing. By convention, React Router uses this as a hint to automatically revalidate the data on the page after the action finishes. That means all of your `useLoaderData` hooks update and the UI stays in sync with your data automatically! Pretty cool.
+
+## URL Params in Loaders
+
+https://reactrouter.com/en/main/start/tutorial#url-params-in-loaders
+
+- Click on the No Name record
+
+We should be seeing our old static contact page again, with one difference: the URL now has a real ID for the record.
+
+Reviewing the route config, the route looks like this:
+
+```jsx
+[
+  {
+    path: "contacts/:contactId",
+    element: <Contact />,
+  },
+];
+```
+
+> [!NOTE]  
+> Note the `:contactId` URL segment. The colon (`:`) has special meaning, turning it into a "dynamic segment".
+> Dynamic segments will match dynamic (changing) values in that position of the URL, like the contact ID.
+> We call these values in the URL "URL Params", or just "params" for short.
+
+These `params` are passed to the loader with keys that match the dynamic segment. For example, our segment is named `:contactId` so the value will be passed as `params.contactId`.
+
+These params are most often used to find a record by ID.
+
+- Add a loader `async function loader({ params })` to the contact page and access data with `useLoaderData()` in `src/routes/contact.jsx`
+- Configure the loader on the route in `src/main.jsx`
