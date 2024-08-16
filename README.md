@@ -206,3 +206,12 @@ We want it to be rendered in the root route's outlet, so we made it a sibling to
 (You might note we reused the `contactLoader` for this route. This is only because we're being lazy in the tutorial. There is no reason to attempt to share loaders among routes, they usually have their own.)
 
 Alright, clicking the "Edit" button gives us this new UI.
+
+## Updating Contacts with FormData
+
+https://reactrouter.com/en/main/start/tutorial#updating-contacts-with-formdata
+
+The edit route we just created already renders a form. All we need to do to update the record is wire up an action to the route. The form will post to the action and the data will be automatically revalidated.
+
+- Add an action to the edit module in `src/routes/edit.jsx`
+- Wire the action up to the route in `src/main.jsx`
