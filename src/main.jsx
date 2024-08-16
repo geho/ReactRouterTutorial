@@ -1,10 +1,18 @@
 // React Router Tutorial
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <div>Hello world!</div>,
+  },
+]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <h1>React Router Tutorial</h1>
+    <RouterProvider router={router} />
   </StrictMode>
 );

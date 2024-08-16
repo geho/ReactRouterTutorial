@@ -39,3 +39,9 @@ echo -e "// React Router Tutorial" > src/routes/edit.jsx
 echo -e "// React Router Tutorial" > src/routes/destroy.jsx
 npx vite --host 0.0.0.0
 ```
+
+## Adding a Router
+
+https://reactrouter.com/en/main/start/tutorial#adding-a-router
+
+- create a `BrowserRouter` in `src/main.jsx` ("root route")
