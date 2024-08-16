@@ -215,3 +215,70 @@ The edit route we just created already renders a form. All we need to do to upda
 
 - Add an action to the edit module in `src/routes/edit.jsx`
 - Wire the action up to the route in `src/main.jsx`
+
+## Mutation Discussion
+
+https://reactrouter.com/en/main/start/tutorial#mutation-discussion
+
+> 😑 It worked, but I have no idea what is going on here...
+
+Let's dig in a bit...
+
+Open up `src/routes/edit.jsx` and look at the form elements. Notice how they each have a name:
+
+```jsx
+<input
+  placeholder="First"
+  aria-label="First name"
+  type="text"
+  name="first"
+  defaultValue={contact.first}
+/>
+```
+
+```jsx
+name = "first";
+```
+
+Without JavaScript, when a form is submitted, the browser will create `FormData` and set it as the body of the request when it sends it to the server. As mentioned before, React Router prevents that and sends the request to your action instead, including the `FormData`.
+
+Each field in the form is accessible with `formData.get(name)`. For example, given the input field from above, you could access the first and last names like this:
+
+```jsx
+export async function action({ request, params }) {
+  const formData = await request.formData();
+  const firstName = formData.get("first");
+  const lastName = formData.get("last");
+  // ...
+}
+```
+
+```jsx
+const firstName = formData.get("first");
+const lastName = formData.get("last");
+```
+
+Since we have a handful of form fields, we used `Object.fromEntries()` to collect them all into an object, which is exactly what our `updateContact()` function wants.
+
+```jsx
+const updates = Object.fromEntries(formData);
+updates.first; // "Some"
+updates.last; // "Name"
+```
+
+Aside from `action()`, none of these APIs we're discussing are provided by React Router: `request`, `request.formData()`, `Object.fromEntries()` are all provided by the web platform.
+
+After we finished the action, note the `redirect()` at the end:
+
+```jsx
+export async function action({ request, params }) {
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  await updateContact(params.contactId, updates);
+  return redirect(`/contacts/${params.contactId}`);
+}
+```
+
+Loaders and actions can both _return a `Response`_ (makes sense, since they received a _`Request`_!). The `redirect()` helper just makes it easier to return a _response_ that tells the app to change locations.
+
+Without client side routing, if a server redirected after a POST request, the new page would fetch the latest data and render. As we learned before, React Router emulates this model and automatically revalidates the data on the page after the action. That's why the sidebar automatically updates when we save the form. The extra revalidation code doesn't exist without client side routing, so it doesn't need to exist with client side routing either!
