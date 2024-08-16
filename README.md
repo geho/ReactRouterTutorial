@@ -74,3 +74,17 @@ https://reactrouter.com/en/main/start/tutorial#the-contact-route-ui
 
 > [!NOTE]  
 > However, it's not inside of our root layout 😠
+
+## Nested Routes
+
+https://reactrouter.com/en/main/start/tutorial#nested-routes
+
+We want the contact component to render inside of the `<Root>` layout.
+
+We do it by making the contact route a _child_ of the root route.
+
+- Move the contacts route to be a _child_ of the root route in `src/main.jsx`
+- Render an `<Outlet>` at `<div id="detail">` in `src/routes/root.jsx`
+
+> [!NOTE]  
+> Without an `<Outlet>` we'll see the root layout again but a blank page on the right.
