@@ -45,3 +45,10 @@ npx vite --host 0.0.0.0
 https://reactrouter.com/en/main/start/tutorial#adding-a-router
 
 - create a `BrowserRouter` in `src/main.jsx` ("root route")
+
+## The Root Route
+
+https://reactrouter.com/en/main/start/tutorial#the-root-route
+
+- Create the root layout component `Root` in `src/routes/root.jsx`
+- Set `<Root>` as the root route's `element` in `src/main.jsx`
