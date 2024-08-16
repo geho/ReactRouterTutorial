@@ -290,3 +290,15 @@ https://reactrouter.com/en/main/start/tutorial#redirecting-new-records-to-the-ed
 Now that we know how to redirect, let's update the action that creates new contacts to redirect to the edit page:
 
 - Redirect to the new record's edit page in `async function action()` in `src/routes/root.jsx`
+
+## Active Link Styling
+
+https://reactrouter.com/en/main/start/tutorial#active-link-styling
+
+Now that we have a bunch of records, it's not clear which one we're looking at in the sidebar. We can use `NavLink` to fix this.
+
+- Use a `NavLink` in the sidebar at `<div id="sidebar">` inbetween `<nav>` and `</nav>` in `src/routes/root.jsx`
+
+> [!NOTE]  
+> Note that we are passing a function to `className`.
+> When the user is at the URL in the `NavLink`, then `isActive` will be true. When it's about to be active (the data is still loading) then `isPending` will be true. This allows us to easily indicate where the user is, as well as provide immediate feedback on links that have been clicked but we're still waiting for data to load.
