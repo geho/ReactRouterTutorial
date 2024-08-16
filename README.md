@@ -191,3 +191,18 @@ These params are most often used to find a record by ID.
 
 - Add a loader `async function loader({ params })` to the contact page and access data with `useLoaderData()` in `src/routes/contact.jsx`
 - Configure the loader on the route in `src/main.jsx`
+
+## Updating Data
+
+https://reactrouter.com/en/main/start/tutorial#updating-data
+
+Just like creating data, you update data with `<Form>`. Let's make a new route at `contacts/:contactId/edit`. Again, we'll start with the component and then wire it up to the route config.
+
+- Add the edit page UI in `src/routes/edit.jsx`
+- Add the new edit route in `src/main.jsx`
+
+We want it to be rendered in the root route's outlet, so we made it a sibling to the existing child route.
+
+(You might note we reused the `contactLoader` for this route. This is only because we're being lazy in the tutorial. There is no reason to attempt to share loaders among routes, they usually have their own.)
+
+Alright, clicking the "Edit" button gives us this new UI.
