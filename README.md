@@ -697,3 +697,11 @@ There's a cleaner way. Routes can be used without a path, which lets them partic
 - Wrap the child routes in a pathless route in `src/main.jsx`
 
 When any errors are thrown in the child routes, our new pathless route will catch it and render, preserving the root route's UI!
+
+## JSX Routes
+
+https://reactrouter.com/en/main/start/tutorial#jsx-routes
+
+And for our final trick, many folks prefer to configure their routes with JSX. You can do that with `createRoutesFromElements()`. There is no functional difference between JSX or objects when configuring your routes, it's simply a stylistic preference.
+
+- Rewrite routes in `src/main.jsx`
