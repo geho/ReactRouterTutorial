@@ -485,3 +485,107 @@ Let's use client side routing to submit this form and filter the list in our exi
 Because this is a GET, not a POST, React Router does not call the `action`. Submitting a GET form is the same as clicking a link: only the URL changes. That's why the code we added for filtering is in the `loader`, not the `action` of this route.
 
 This also means it's a normal page navigation. You can click the back button to get back to where you were.
+
+## Synchronizing URLs to Form State
+
+https://reactrouter.com/en/main/start/tutorial#synchronizing-urls-to-form-state
+
+There are a couple of UX issues here that we can take care of quickly.
+
+1.  If you click back after a search, the form field still has the value you entered even though the list is no longer filtered.
+2.  If you refresh the page after searching, the form field no longer has the value in it, even though the list is filtered
+
+In other words, the URL and our form state are out of sync.
+
+- Return q from your loader and set it as the search field default value in `src/routes/root.jsx`
+
+That solves problem (2). If you refresh the page now, the input field will show the query.
+
+Now for problem (1), clicking the back button and updating the input. We can bring in `useEffect()` from React to manipulate the form's state in the DOM directly.
+
+- Synchronize input value with the URL Search Params in `src/routes/root.jsx`
+
+> 🤔 Shouldn't you use a controlled component and React State for this?
+
+You could certainly do this as a controlled component, but you'll end up with more complexity for the same behavior. You don't control the URL, the user does with the back/forward buttons. There would be more synchronization points with a controlled component.
+
+If you're still concerned, see the following.
+
+Notice how controlling the input requires three points of synchronization now instead of just one. The behavior is identical but the code is more complex.
+
+```jsx
+import { useEffect, useState } from "react";
+// existing code
+
+export async function loader({ request }) {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q") || "";
+  const contacts = await getContacts(q);
+  return { contacts, q };
+}
+
+// existing code
+
+export default function Root() {
+  const { contacts, q } = useLoaderData();
+  const [query, setQuery] = useState(q);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    setQuery(q);
+  }, [q]);
+
+  return (
+    <>
+      <div id="sidebar">
+        <h1>React Router Contacts</h1>
+        <div>
+          <Form id="search-form" role="search">
+            <input
+              id="q"
+              aria-label="Search contacts"
+              placeholder="Search"
+              type="search"
+              name="q"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+              }}
+            />
+            {/* existing code */}
+          </Form>
+          {/* existing code */}
+        </div>
+        {/* existing code */}
+      </div>
+    </>
+  );
+}
+```
+
+Complexity added:
+
+```jsx
+import { useEffect, useState } from "react";
+```
+
+```jsx
+const q = url.searchParams.get("q") || "";
+```
+
+```jsx
+const [query, setQuery] = useState(q);
+```
+
+```jsx
+useEffect(() => {
+  setQuery(q);
+}, [q]);
+```
+
+```jsx
+value={query}
+onChange={(e) => {
+  setQuery(e.target.value);
+}}
+```
