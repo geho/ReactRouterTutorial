@@ -373,3 +373,31 @@ When the user clicks the submit button:
 3.  After the action redirects, React Router calls all of the loaders for the data on the page to get the latest values (this is "revalidation"). `useLoaderData()` returns new values and causes the components to update!
 
 Add a form, add an action, React Router does the rest.
+
+## Contextual Errors
+
+https://reactrouter.com/en/main/start/tutorial#contextual-errors
+
+Just for kicks, throw an error in the destroy action in `src/routes/destroy.jsx`:
+
+```jsx
+export async function action({ params }) {
+  throw new Error("oh dang!");
+  await deleteContact(params.contactId);
+  return redirect("/");
+}
+```
+
+```jsx
+throw new Error("oh dang!");
+```
+
+Recognize that screen? It's our `errorElement` from before. The user, however, can't really do anything to recover from this screen except to hit refresh.
+
+- Let's create a contextual error message for the destroy route in `src/main.jsx`
+
+Now try it again.
+
+Our user now has more options than slamming refresh, they can continue to interact with the parts of the page that aren't having trouble 🙌
+
+Because the destroy route has its own `errorElement` and is a child of the root route, the error will render there instead of the root. As you probably noticed, these errors bubble up to the nearest `errorElement`. Add as many or as few as you like, as long as you've got one at the root.
