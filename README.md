@@ -101,3 +101,28 @@ Client side routing allows our app to update the URL without requesting another 
 
 > [!NOTE]  
 > You can open the network tab in the browser devtools to see that it's not requesting documents anymore.
+
+## Loading Data
+
+https://reactrouter.com/en/main/start/tutorial#loading-data
+
+URL segments, layouts, and data are more often than not coupled (tripled?) together. We can see it in this app already:
+
+| URL Segment    | Component   | Data               |
+| -------------- | ----------- | ------------------ |
+| `/`            | `<Root>`    | list of contacts   |
+| `contacts/:id` | `<Contact>` | individual contact |
+
+Because of this natural coupling, React Router has data conventions to get data into your route components easily.
+
+There are two APIs we'll be using to load data, `loader()` and `useLoaderData()`.
+
+1. First we'll create and export a loader function in the root module.
+2. Then we'll hook it up to the route.
+3. Finally, we'll access and render the data.
+
+- Export a loader `async function loader()` from `src/routes/root.jsx`
+- Configure the loader on the route in `src/main.jsx`
+- Access and render the data at `<div id="sidebar">` inbetween `<nav>` and `</nav>` in `src/routes/root.jsx`
+
+That's it! React Router will now automatically keep that data in sync with your UI.
