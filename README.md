@@ -327,3 +327,49 @@ In our case, we add a `"loading"` class to the main part of the app if we're not
 > no matter if you've been there before or not.
 > It does, however, avoid calling the loaders for _unchanging_ routes (like the list)
 > during a navigation.
+
+## Deleting Records
+
+https://reactrouter.com/en/main/start/tutorial#deleting-records
+
+If we review code in the contact route (`src/routes/contact.jsx`), we can find the delete button looks like this:
+
+```jsx
+<Form
+  method="post"
+  action="destroy"
+  onSubmit={(event) => {
+    if (!confirm("Please confirm you want to delete this record.")) {
+      event.preventDefault();
+    }
+  }}>
+  <button type="submit">Delete</button>
+</Form>
+```
+
+```jsx
+action = "destroy";
+```
+
+Note the `action` points to `"destroy"`. Like `<Link to>`, `<Form action>` can take a _relative_ value. Since the form is rendered in `contact/:contactId`, then a relative action with `destroy` will submit the form to `contact/:contactId/destroy` when clicked.
+
+At this point you should know everything you need to know to make the delete button work. You'll need:
+
+1.  A new route
+2.  An `action` at that route
+3.  `deleteContact()` from `src/contacts.js`
+
+- Add the destroy action ` async function action({ params })` in `src/routes/destroy.jsx`
+- Add the destroy route to the route config in `src/main.jsx`
+
+Alright, navigate to a record and click the "Delete" button. It works!
+
+> 😅 I'm still confused why this all works
+
+When the user clicks the submit button:
+
+1.  `<Form>` prevents the default browser behavior of sending a new POST request to the server, but instead emulates the browser by creating a POST request with client side routing
+2.  The `<Form action="destroy">` matches the new route at `"contacts/:contactId/destroy"` and sends it the request
+3.  After the action redirects, React Router calls all of the loaders for the data on the page to get the latest values (this is "revalidation"). `useLoaderData()` returns new values and causes the components to update!
+
+Add a form, add an action, React Router does the rest.
