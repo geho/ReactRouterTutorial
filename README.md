@@ -472,3 +472,16 @@ As we've seen before, browsers can serialize forms by the name attribute of it's
 > That means when the browser creates the request for the next document,
 > it doesn't put the form data into the request POST body,
 > but into the `URLSearchParams` of a GET request.
+
+## GET Submissions with Client Side Routing
+
+https://reactrouter.com/en/main/start/tutorial#get-submissions-with-client-side-routing
+
+Let's use client side routing to submit this form and filter the list in our existing loader.
+
+- Change `<form>` to `<Form>` at `<div id="sidebar">` in `src/routes/root.jsx`
+- Filter the list if there are URLSearchParams in action `async function loader({ request })` in `src/routes/root.jsx`
+
+Because this is a GET, not a POST, React Router does not call the `action`. Submitting a GET form is the same as clicking a link: only the URL changes. That's why the code we added for filtering is in the `loader`, not the `action` of this route.
+
+This also means it's a normal page navigation. You can click the back button to get back to where you were.
