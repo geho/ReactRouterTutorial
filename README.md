@@ -627,3 +627,29 @@ We can avoid this by replacing the current entry in the history stack with the n
 We only want to replace search results, not the page before we started searching, so we do a quick check if this is the first search or not and then decide to replace.
 
 Each key stroke no longer creates new entries, so the user can click back out of the search results without having to click it 7 times 😅.
+
+## Mutations Without Navigation
+
+https://reactrouter.com/en/main/start/tutorial#mutations-without-navigation
+
+So far all of our mutations (the times we change data) have used forms that navigate, creating new entries in the history stack. While these user flows are common, it's equally as common to want to change data _without_ causing a navigation.
+
+For these cases, we have the _`useFetcher()`_ hook. It allows us to communicate with loaders and actions without causing a navigation.
+
+The ★ button on the contact page makes sense for this. We aren't creating or deleting a new record, we don't want to change pages, we simply want to change the data on the page we're looking at.
+
+- Change the <Favorite> form to a fetcher form in `src/routes/contact.jsx`
+
+Might want to take a look at that form while we're here. As always, our form has fields with a `name` prop. This form will send _`formData`_ with a favorite key that's either `"true" | "false"`. Since it's got `method="post"` it will call the action. Since there is no `<fetcher.Form action="...">` prop, it will post to the route where the form is rendered.
+
+- Create the action `async function action({ request, params })` in `src/routes/contact.jsx`
+
+Pretty simple. Pull the form data off the request and send it to the data model.
+
+- Configure the route's new action in `src/main.jsx`
+
+Alright, we're ready to click the star next to the user's name!
+
+Check that out, both stars automatically update. Our new `<fetcher.Form method="post">` works almost exactly like the `<Form>` we've been using: it calls the action and then all data is revalidated automatically - even your errors will be caught the same way.
+
+There is one key difference though, it's not a navigation - the URL doesn't change, the history stack is unaffected.
