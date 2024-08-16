@@ -301,4 +301,29 @@ Now that we have a bunch of records, it's not clear which one we're looking at i
 
 > [!NOTE]  
 > Note that we are passing a function to `className`.
-> When the user is at the URL in the `NavLink`, then `isActive` will be true. When it's about to be active (the data is still loading) then `isPending` will be true. This allows us to easily indicate where the user is, as well as provide immediate feedback on links that have been clicked but we're still waiting for data to load.
+> When the user is at the URL in the `NavLink`, then `isActive` will be true.
+> When it's about to be active (the data is still loading) then `isPending` will be true.
+> This allows us to easily indicate where the user is, as well as provide immediate feedback
+> on links that have been clicked but we're still waiting for data to load.
+
+## Global Pending UI
+
+https://reactrouter.com/en/main/start/tutorial#global-pending-ui
+
+As the user navigates the app, React Router will _leave the old page up_ as data is loading for the next page. You may have noticed the app feels a little unresponsive as you click between the list. Let's provide the user with some feedback so the app doesn't feel unresponsive.
+
+React Router is managing all of the state behind the scenes and reveals the pieces of it you need to build dynamic web apps. In this case, we'll use the `useNavigation()` hook.
+
+- `useNavigation()` to add global pending UI at `<div id="detail">` in `src/routes/root.jsx`
+
+_`useNavigation`_ returns the current navigation state: it can be one of `"idle" | "submitting" | "loading"`.
+
+In our case, we add a `"loading"` class to the main part of the app if we're not idle. The CSS then adds a nice fade after a short delay (to avoid flickering the UI for fast loads). You could do anything you want though, like show a spinner or loading bar across the top.
+
+> [!NOTE]  
+> Note that our data model (`src/contacts.js`) has a clientside cache,
+> so navigating to the same contact is fast the second time.
+> This behavior is not React Router, it will re-load data for changing routes
+> no matter if you've been there before or not.
+> It does, however, avoid calling the loaders for _unchanging_ routes (like the list)
+> during a navigation.
