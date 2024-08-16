@@ -653,3 +653,17 @@ Alright, we're ready to click the star next to the user's name!
 Check that out, both stars automatically update. Our new `<fetcher.Form method="post">` works almost exactly like the `<Form>` we've been using: it calls the action and then all data is revalidated automatically - even your errors will be caught the same way.
 
 There is one key difference though, it's not a navigation - the URL doesn't change, the history stack is unaffected.
+
+## Optimistic UI
+
+https://reactrouter.com/en/main/start/tutorial#optimistic-ui
+
+You probably noticed the app felt kind of unresponsive when we clicked the favorite button from the last section. Once again, we added some network latency because you're going to have it in the real world!
+
+To give the user some feedback, we could put the star into a loading state with _`fetcher.state`_ (a lot like `navigation.state` from before), but we can do something even better this time. We can use a strategy called "optimistic UI"
+
+The fetcher knows the form data being submitted to the action, so it's available to you on `fetcher.formData`. We'll use that to immediately update the star's state, even though the network hasn't finished. If the update eventually fails, the UI will revert to the real data.
+
+- Read the optimistic value from `fetcher.formData` in `src/routes/contact.jsx`
+
+If you click the button now you should see the star immediately change to the new state. Instead of always rendering the actual data, we check if the fetcher has any `formData` being submitted, if so, we'll use that instead. When the action is done, the `fetcher.formData` will no longer exist and we're back to using the actual data. So even if you write bugs in your optimistic UI code, it'll eventually go back to the correct state.
