@@ -64,3 +64,13 @@ https://reactrouter.com/en/main/start/tutorial#handling-not-found-errors
 > `useRouteError()` provides the error that was thrown.
 >
 > When the user navigates to routes that don't exist you'll get an error response with a "Not Found" `statusText`.
+
+## The Contact Route UI
+
+https://reactrouter.com/en/main/start/tutorial#the-contact-route-ui
+
+- Add the contact component UI `Contact` in `src/routes/contact.jsx`
+- Import the contact component `Contact`and create a new route in `src/main.jsx`
+
+> [!NOTE]  
+> However, it's not inside of our root layout 😠
