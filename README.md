@@ -126,3 +126,21 @@ There are two APIs we'll be using to load data, `loader()` and `useLoaderData()`
 - Access and render the data at `<div id="sidebar">` inbetween `<nav>` and `</nav>` in `src/routes/root.jsx`
 
 That's it! React Router will now automatically keep that data in sync with your UI.
+
+## Data Writes + HTML Forms
+
+https://reactrouter.com/en/main/start/tutorial#data-writes--html-forms
+
+React Router emulates HTML Form navigation as the data mutation primitive, according to web development before the JavaScript cambrian explosion. It gives you the UX capabilities of client rendered apps with the simplicity of the "old school" web model.
+
+While unfamiliar to some web developers, HTML forms actually cause a navigation in the browser, just like clicking a link. The only difference is in the request: links can only change the URL while forms can also change the request method (GET vs POST) and the request body (POST form data).
+
+Without client side routing, the browser will serialize the form's data automatically and send it to the server as the request body for POST, and as URLSearchParams for GET. React Router does the same thing, except instead of sending the request to the server, it uses client side routing and sends it to a route `action`.
+
+We can test this out by clicking the "New" button in our app. The app should blow up because the Vite server isn't configured to handle a POST request (it sends a 404, though it should probably be a 405 🤷).
+
+Instead of sending that POST to the Vite server to create a new contact, let's use client side routing instead.
+
+> [!NOTE]  
+> You can open the network tab in the browser devtools to see that it's returning 404
+> if the Browser screen keeps empty and does not show the 404 error directly.
