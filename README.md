@@ -282,3 +282,11 @@ export async function action({ request, params }) {
 Loaders and actions can both _return a `Response`_ (makes sense, since they received a _`Request`_!). The `redirect()` helper just makes it easier to return a _response_ that tells the app to change locations.
 
 Without client side routing, if a server redirected after a POST request, the new page would fetch the latest data and render. As we learned before, React Router emulates this model and automatically revalidates the data on the page after the action. That's why the sidebar automatically updates when we save the form. The extra revalidation code doesn't exist without client side routing, so it doesn't need to exist with client side routing either!
+
+## Redirecting new records to the edit page
+
+https://reactrouter.com/en/main/start/tutorial#redirecting-new-records-to-the-edit-page
+
+Now that we know how to redirect, let's update the action that creates new contacts to redirect to the edit page:
+
+- Redirect to the new record's edit page in `async function action()` in `src/routes/root.jsx`
