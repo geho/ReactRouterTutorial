@@ -667,3 +667,19 @@ The fetcher knows the form data being submitted to the action, so it's available
 - Read the optimistic value from `fetcher.formData` in `src/routes/contact.jsx`
 
 If you click the button now you should see the star immediately change to the new state. Instead of always rendering the actual data, we check if the fetcher has any `formData` being submitted, if so, we'll use that instead. When the action is done, the `fetcher.formData` will no longer exist and we're back to using the actual data. So even if you write bugs in your optimistic UI code, it'll eventually go back to the correct state.
+
+## Not Found Data
+
+https://reactrouter.com/en/main/start/tutorial#not-found-data
+
+What happens if the contact we're trying to load doesn't exist?
+
+Our root _`errorElement`_ is catching this unexpected error as we try to render a `null` contact. Nice the error was properly handled, but we can do better!
+
+Whenever you have an expected error case in a loader or action–like the data not existing–you can `throw`. The call stack will break, React Router will catch it, and the error path is rendered instead. We won't even try to render a `null` contact.
+
+- Throw a 404 response in the loader in `src/routes/contact.jsx`
+
+Instead of hitting a render error with `Cannot read properties of null`, we avoid the component completely and render the error path instead, telling the user something more specific.
+
+This keeps your happy paths, happy. Your route elements don't need to concern themselves with error and loading states.
