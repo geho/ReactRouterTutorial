@@ -144,3 +144,19 @@ Instead of sending that POST to the Vite server to create a new contact, let's u
 > [!NOTE]  
 > You can open the network tab in the browser devtools to see that it's returning 404
 > if the Browser screen keeps empty and does not show the 404 error directly.
+
+## Creating Contacts
+
+https://reactrouter.com/en/main/start/tutorial#creating-contacts
+
+We'll create new contacts by exporting an action in our root route, wiring it up to the route config, and changing our `<form>` to a React Router `<Form>`.
+
+- Create the action `async function action()` and change `<form>` to `<Form>` at `<div id="sidebar">` in `src/routes/root.jsx`
+- Import and set the action on the route in `src/main.jsx`
+
+The createContact method just creates an empty contact with no name or data or anything. But it does still create a record, promise!
+
+> 🧐 Wait a sec ... How did the sidebar update? Where did we call the `action`?
+> Where's the code to refetch the data? Where are `useState`, `onSubmit` and `useEffect`?!
+
+This is where the "old school web" programming model shows up. As we discussed earlier, `<Form>` prevents the browser from sending the request to the server and sends it to your route action instead. In web semantics, a POST usually means some data is changing. By convention, React Router uses this as a hint to automatically revalidate the data on the page after the action finishes. That means all of your `useLoaderData` hooks update and the UI stays in sync with your data automatically! Pretty cool.
