@@ -88,3 +88,16 @@ We do it by making the contact route a _child_ of the root route.
 
 > [!NOTE]  
 > Without an `<Outlet>` we'll see the root layout again but a blank page on the right.
+
+## Client Side Routing
+
+https://reactrouter.com/en/main/start/tutorial#client-side-routing
+
+You may or may not have noticed, but when we click the links in the sidebar, the browser is doing a full document request for the next URL instead of using React Router.
+
+Client side routing allows our app to update the URL without requesting another document from the server. Instead, the app can immediately render new UI. Let's make it happen with `<Link>`.
+
+- Change the sidebar (at `<div id="sidebar">`) `<a href>` to `<Link to>` in `src/routes/root.jsx`
+
+> [!NOTE]  
+> You can open the network tab in the browser devtools to see that it's not requesting documents anymore.
