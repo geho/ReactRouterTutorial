@@ -683,3 +683,17 @@ Whenever you have an expected error case in a loader or action–like the data n
 Instead of hitting a render error with `Cannot read properties of null`, we avoid the component completely and render the error path instead, telling the user something more specific.
 
 This keeps your happy paths, happy. Your route elements don't need to concern themselves with error and loading states.
+
+## Pathless Routes
+
+https://reactrouter.com/en/main/start/tutorial#pathless-routes
+
+One last thing. The last error page we saw would be better if it rendered inside the root outlet, instead of the whole page. In fact, every error in all of our child routes would be better in the outlet, then the user has more options than hitting refresh.
+
+We could add the error element to every one of the child routes but, since it's all the same error page, this isn't recommended.
+
+There's a cleaner way. Routes can be used without a path, which lets them participate in the UI layout without requiring new path segments in the URL.
+
+- Wrap the child routes in a pathless route in `src/main.jsx`
+
+When any errors are thrown in the child routes, our new pathless route will catch it and render, preserving the root route's UI!
