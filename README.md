@@ -52,3 +52,15 @@ https://reactrouter.com/en/main/start/tutorial#the-root-route
 
 - Create the root layout component `Root` in `src/routes/root.jsx`
 - Set `<Root>` as the root route's `element` in `src/main.jsx`
+
+## Handling Not Found Errors
+
+https://reactrouter.com/en/main/start/tutorial#handling-not-found-errors
+
+- Create an error page component `ErrorPage` in `src/error-page.jsx`
+- Set the `<ErrorPage>` as the `errorElement` on the root route in `src/main.jsx`
+
+> [!NOTE]  
+> `useRouteError()` provides the error that was thrown.
+>
+> When the user navigates to routes that don't exist you'll get an error response with a "Not Found" `statusText`.
