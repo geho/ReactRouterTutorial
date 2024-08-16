@@ -589,3 +589,15 @@ onChange={(e) => {
   setQuery(e.target.value);
 }}
 ```
+
+## Submitting Forms `onChange`
+
+We've got a product decision to make here. For this UI, we'd probably rather have the filtering happen on every key stroke instead of when the form is explicitly submitted.
+
+We've seen `useNavigate()` already (`src/routes/edit.jsx`), we'll use its cousin, `useSubmit()`, for this.
+
+- Add `useSubmit()` in `src/routes/root.jsx`
+
+Now as you type, the form is submitted automatically!
+
+Note the argument to _`submit()`_. We're passing in `event.currentTarget.form`. The `currentTarget` is the DOM node the event is attached to, and the `currentTarget.form` is the input's parent form node. The `submit()` function will serialize and submit any form you pass to it.
