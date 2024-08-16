@@ -613,3 +613,17 @@ Without any loading indicator, the search feels kinda sluggish. Even if we could
 - Add the search spinner in `src/routes/root.jsx`
 
 The `navigation.location` will show up when the app is navigating to a new URL and loading the data for it. It then goes away when there is no pending navigation anymore.
+
+## Managing the History Stack
+
+https://reactrouter.com/en/main/start/tutorial#managing-the-history-stack
+
+Now that the form is submitted for every key stroke, if we type the characters "seba" and then delete them with backspace, we end up with 7 new entries in the stack 😂. We definitely don't want this.
+
+We can avoid this by replacing the current entry in the history stack with the next page, instead of pushing into it.
+
+- Use `replace` in `submit()` in `src/routes/root.jsx`
+
+We only want to replace search results, not the page before we started searching, so we do a quick check if this is the first search or not and then decide to replace.
+
+Each key stroke no longer creates new entries, so the user can click back out of the search results without having to click it 7 times 😅.
