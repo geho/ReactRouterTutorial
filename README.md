@@ -401,3 +401,18 @@ Now try it again.
 Our user now has more options than slamming refresh, they can continue to interact with the parts of the page that aren't having trouble 🙌
 
 Because the destroy route has its own `errorElement` and is a child of the root route, the error will render there instead of the root. As you probably noticed, these errors bubble up to the nearest `errorElement`. Add as many or as few as you like, as long as you've got one at the root.
+
+## Index Routes
+
+https://reactrouter.com/en/main/start/tutorial#index-routes
+
+When we load up the app, you'll notice a big blank page on the right side of our list.
+
+When a route has children, and you're at the parent route's path, the `<Outlet>` has nothing to render because no children match. You can think of index routes as the default child route to fill in that space.
+
+- Fill in the index component's elements in `src/routes/index.jsx`
+- Configure the index route in `src/main.jsx`
+
+Note the `{ index:true }` instead of `{ path: "" }`. That tells the router to match and render this route when the user is at the parent route's exact path, so there are no other child routes to render in the `<Outlet>`.
+
+Voila! No more blank space. It's common to put dashboards, stats, feeds, etc. at index routes. They can participate in data loading as well.
