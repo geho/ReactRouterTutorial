@@ -416,3 +416,21 @@ When a route has children, and you're at the parent route's path, the `<Outlet>`
 Note the `{ index:true }` instead of `{ path: "" }`. That tells the router to match and render this route when the user is at the parent route's exact path, so there are no other child routes to render in the `<Outlet>`.
 
 Voila! No more blank space. It's common to put dashboards, stats, feeds, etc. at index routes. They can participate in data loading as well.
+
+## Cancel Button
+
+https://reactrouter.com/en/main/start/tutorial#cancel-button
+
+On the edit page we've got a cancel button that doesn't do anything yet. We'd like it to do the same thing as the browser's back button.
+
+We'll need a click handler `onClick()` on the button as well as `useNavigate()` from React Router.
+
+- Add the cancel button click handler `onClick()` with `useNavigate()` in `src/routes/edit.jsx`
+
+Now when the user clicks "Cancel", they'll be sent back one entry in the browser's history.
+
+> 🧐 Why is there no `event.preventDefault` on the button?
+
+A `<button type="button">`, while seemingly redundant, is the HTML way of preventing a button from submitting its form.
+
+Two more features to go. We're on the home stretch!
