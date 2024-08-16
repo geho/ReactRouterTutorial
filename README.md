@@ -434,3 +434,41 @@ Now when the user clicks "Cancel", they'll be sent back one entry in the browser
 A `<button type="button">`, while seemingly redundant, is the HTML way of preventing a button from submitting its form.
 
 Two more features to go. We're on the home stretch!
+
+## URL Search Params and GET Submissions
+
+https://reactrouter.com/en/main/start/tutorial#url-search-params-and-get-submissions
+
+All of our interactive UI so far have been either links that change the URL or forms that post data to actions. The search field is interesting because it's a mix of both: it's a form but it only changes the URL, it doesn't change data.
+
+Right now it's just a normal HTML <form>, not a React Router <Form>. Let's see what the browser does with it by default.
+
+- Type a name (e.g. _Albert Einstein_) into the search field and hit the enter key
+
+Note the browser's URL now contains your query in the URL as URLSearchParams:
+`http://127.0.0.1:5173/?q=Albert+Einstein`
+
+If we review the search form at `<div id="sidebar">` in `src/routes/root.jsx`, it looks like this:
+
+```jsx
+<form id="search-form" role="search">
+  <input
+    id="q"
+    aria-label="Search contacts"
+    placeholder="Search"
+    type="search"
+    name="q"
+  />
+  <div id="search-spinner" aria-hidden hidden={true} />
+  <div className="sr-only" aria-live="polite"></div>
+</form>
+```
+
+As we've seen before, browsers can serialize forms by the name attribute of it's input elements. The name of this input is `q`, that's why the URL has `?q=`. If we named it `search` the URL would be `?search=`.
+
+> [!NOTE]  
+> Note that this form is different from the others we've used, it does not have `<form method="post">`.
+> The default method is `"get"`.
+> That means when the browser creates the request for the next document,
+> it doesn't put the form data into the request POST body,
+> but into the `URLSearchParams` of a GET request.
